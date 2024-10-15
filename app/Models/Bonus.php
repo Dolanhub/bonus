@@ -16,7 +16,8 @@ class Bonus extends Model
         'totaldepo',
         'bonus',
         'status',
-        'responseapi'
+        'responseapi',
+        'create_at',
     ];
 
     public function user()

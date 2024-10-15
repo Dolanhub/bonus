@@ -117,7 +117,7 @@ class BonusImport implements ToCollection,ToModel
         ]);
     }
 
-    private function sendBonusApi($member, $bonus, $userName)
+    public function sendBonusApi($member, $bonus, $userName)
     {
 
         // Bangun URL API dengan parameter dinamis
@@ -132,7 +132,7 @@ class BonusImport implements ToCollection,ToModel
         try {
 
             // Tambahkan jeda 500ms sebelum request
-            usleep(500000); // 500.000 mikrodetik = 0,5 detik
+            usleep(250000); // 500.000 mikrodetik = 0,5 detik
 
             // Kirim GET request ke URL API
             $response = Http::get($url);

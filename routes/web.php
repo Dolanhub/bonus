@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
     Route::get('users-export', [UserController::class, 'export'])->name('users.export');
     Route::resource('uploadsbonus', UploadBonusController::class);
+    Route::post('/uploadsbonus/send/{id}', [UploadBonusController::class, 'send'])->name('uploadsbonus.send');
     Route::resource('uploadscashback',UploadCashBackController::class);
     Route::resource('uploadsrolling',UploadRollingController::class);
     Route::resource('hasilbonus',HasilUploadBonusController::class);
