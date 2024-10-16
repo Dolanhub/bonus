@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Upload Bonus')
+@section('title', 'Upload CashBack')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,7 +14,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Upload Bonus</h1>
+                <h1>Upload CashBack</h1>
             </div>
 
             <div class="row">
@@ -38,14 +38,16 @@
                         </div>
                         <div class="section-header-button">
                             <button type="submit"
-                                class="btn btn-primary" id="uploadButton">Upload</button>
+                                class="btn btn-primary" id="uploadButton">Upload CashBack</button>
                         </div>
                      </form>
                 </div>
-            </div>
 
+
+            </div>
             <div class="clearfix mb-3"></div>
             <div class="clearfix mb-3"></div>
+
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card">
@@ -54,7 +56,7 @@
                         </div>
                         <div class="card-body">
                             <div class="float-right">
-                                <form method="GET" action="{{ route('uploadsbonus.index') }}" >
+                                <form method="GET" action="{{ route('uploadscashback.index') }}" >
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" name="search" value="{{ request('search') }}">
                                         <div class="input-group-append">
@@ -63,73 +65,71 @@
                                     </div>
                                 </form>
                             </div>
+
                             <div class="table-responsive">
                                 {{-- @include('pages.users.table',$users) --}}
                                 <table class="table-striped table">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>ID Upload</th>
-                                    <th>User ID</th>
-                                    <th>Member</th>
-                                    <th>Total Deposit</th>
-                                    <th>Bonus</th>
-                                    <th>Status</th>
-                                    <th>Response</th>
-                                    <th>Message</th>
-                                    <th>Created At</th>
-                                    <th>Action</th>
-
+                                        <th>ID</th>
+                                        <th>ID Upload</th>
+                                        <th>User ID</th>
+                                        <th>Member</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Response</th>
+                                        <th>Message</th>
+                                        <th>Created At</th>
+                                        <th>Action</th>
                                 </tr>
-                                @foreach($uploadedData as $bonus)
+                                @foreach($uploadcashbacks as $cashback)
                                 @php
                                     // Parsing JSON dari responseapi
-                                    $response = json_decode($bonus->responseapi, true);
+                                    $response = json_decode($cashback->responseapi, true);
                                     $success = isset($response['success'])
                                                 ? ($response['success'] ? 'Berhasil' : 'Gagal')
                                                 : 'Data Error';
 
                                     $messageFromApi = $response['message'] ?? 'N/A';
                                         // Logika Message berdasarkan Status
-                                        if ($bonus->status == 3) {
+                                        if ($cashback->status == 3) {
                                             $message = 'unproses';
-                                        } elseif (in_array($bonus->status, [1, 2])) {
+                                        } elseif (in_array($cashback->status, [1, 2])) {
                                             $message = $messageFromApi;
                                         } else {
                                             $message = 'Status tidak diketahui';
                                         }
                                 @endphp
                                 <tr>
-                                    <td>{{ $bonus->id }}</td>
-                                    <td>{{ $bonus->idupload }}</td>
-                                    <td>{{ $bonus->user ? $bonus->user->name : 'User tidak ditemukan' }}</td>
-                                    <td>{{ $bonus->member }}</td>
-                                    <td>{{ number_format($bonus->totaldepo, 0, ',', '.') }}</td>
-                                    <td>{{ number_format($bonus->bonus, 0, ',', '.') }}</td>
+                                    <td>{{ $cashback->id }}</td>
+                                    <td>{{ $cashback->idupload }}</td>
+                                    <td>{{ $cashback->user ? $cashback->user->name : 'User tidak ditemukan' }}</td>
+                                    <td>{{ $cashback->member }}</td>
+                                    <td>{{ number_format($cashback->total, 0, ',', '.') }}</td>
+                                    {{-- <td>{{ $bonus->status }}</td> --}}
                                     <td>
-                                        @if ($bonus->status == 1)
+                                        @if ($cashback->status == 1)
                                             <div class="badge badge-success">Success</div>
-                                        @elseif ($bonus->status == 2)
+                                        @elseif ($cashback->status == 2)
                                             <div class="badge badge-danger">Error</div>
-                                        @elseif ($bonus->status == 0)
+                                        @elseif ($cashback->status == 0)
                                             <div class="badge badge-warning">Pending</div>
-                                        @elseif ($bonus->status == 3)
+                                        @elseif ($cashback->status == 3)
                                             <div class="badge badge-info">UnUpload</div>
                                         @endif
                                     </td>
                                     <td>{{ $success }}</td> <!-- Tampilkan success -->
                                     <td>{{ $message }}</td> <!-- Tampilkan message sesuai kondisi -->
-                                    <td>{{ $bonus->created_at }}</td>
-
+                                    <td>{{ $cashback->created_at }}</td>
                                     <td>
 
                                             <div class="d-flex justify-content-center">
-                                                <a href='{{ route('uploadsbonus.edit', $bonus->id) }}'
+                                                <a href='{{ route('uploadscashback.edit', $cashback->id) }}'
                                                     class="btn btn-sm btn-info btn-icon">
                                                     <i class="fas fa-edit"></i>
                                                     Edit
                                                 </a>
 
-                                                <form action="{{ route('uploadsbonus.send', $bonus->id) }}" method="POST" class="ml-2">
+                                                <form action="{{ route('uploadscashback.send', $cashback->id) }}" method="POST" class="ml-2">
                                                     @csrf
                                                     <button class="btn btn-sm btn-warning btn-icon">
                                                         <i class="fas fa-times"></i> Send
@@ -144,7 +144,7 @@
                                 </table>
                             </div>
                             <div class="float-right">
-                                {{ $uploadedData->withQueryString()->links() }}
+                                {{ $uploadcashbacks->withQueryString()->links() }}
                             </div>
                         </div>
                     </div>
@@ -167,6 +167,7 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/index-0.js') }}"></script>
+
     <script>
         const form = document.getElementById('uploadForm');
         const uploadButton = document.getElementById('uploadButton');
@@ -178,4 +179,3 @@
         });
     </script>
 @endpush
-

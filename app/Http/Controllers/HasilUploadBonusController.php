@@ -91,6 +91,7 @@ class HasilUploadBonusController extends Controller
 
     public function export(Request $request)
     {
+        // dd($request);
 
         return Excel::download(new BonusesExport($request), 'bonus.csv', \Maatwebsite\Excel\Excel::CSV);
 

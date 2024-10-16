@@ -30,8 +30,18 @@ class BonusesExport implements FromCollection, WithHeadings,WithMapping
             $query->where('idupload', $this->request->idupload);
         }
 
+        // if ($this->request->filled('start_date') && $this->request->filled('end_date')) {
+        //     $query->whereBetween('created_at', [$this->request->start_date, $this->request->end_date]);
+        // }
+
+        // Filter berdasarkan rentang tanggal created_at jika ada
         if ($this->request->filled('start_date') && $this->request->filled('end_date')) {
-            $query->whereBetween('created_at', [$this->request->start_date, $this->request->end_date]);
+            $query->whereDate('created_at', '>=', $this->request->start_date)
+                  ->whereDate('created_at', '<=', $this->request->end_date);
+        } elseif ($this->request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $this->request->start_date);
+        } elseif ($this->request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $this->request->end_date);
         }
 
         if ($this->request->filled('search')) {
@@ -66,7 +76,7 @@ class BonusesExport implements FromCollection, WithHeadings,WithMapping
             $bonus->idupload,
             $bonus->user ? $bonus->user->name : 'Unknown',
             $bonus->member,
-            $bonus->total,
+            $bonus->totaldepo,
             $this->getStatusLabel($bonus->status),
             $bonus->created_at ? $bonus->created_at->format('Y-m-d') : 'No Date',
 

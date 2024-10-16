@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('pages.auth.login');
+    return view('auth.login');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('uploadsbonus', UploadBonusController::class);
     Route::post('/uploadsbonus/send/{id}', [UploadBonusController::class, 'send'])->name('uploadsbonus.send');
     Route::resource('uploadscashback',UploadCashBackController::class);
+    Route::post('/uploadscashback/send/{id}', [UploadCashBackController::class, 'send'])->name('uploadscashback.send');
     Route::resource('uploadsrolling',UploadRollingController::class);
     Route::resource('hasilbonus',HasilUploadBonusController::class);
     Route::get('bonus-export', [HasilUploadBonusController::class, 'export'])->name('hasilbonus.export');

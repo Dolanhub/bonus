@@ -17,6 +17,8 @@ class BonusImport implements ToCollection,ToModel
     private $current = 0;
     protected $idUpload;
     protected $baseUrl;
+    protected $setting;
+    protected $persen;
     /**
     * @param Collection $collection
     */
@@ -25,6 +27,8 @@ class BonusImport implements ToCollection,ToModel
     {
         $this->idUpload = $idUpload;
         $this->baseUrl = config('services.api.url'); // Ambil URL API dari config
+        $this->setting = Setting::first(); // Mengambil satu record dari tabel setting
+        $this->persen = $this->setting->persen / 100; // Ambil persen dari setting dan bagi 100
 
     }
 
@@ -43,10 +47,9 @@ class BonusImport implements ToCollection,ToModel
     $member = $row[0]; // Kolom Member
     $total = $row[1];  // Kolom Total dari Excel
     // Ambil nilai persen dan maxbonus dari table setting
-    $setting = Setting::first(); // Mengambil satu record dari tabel setting
-    $persen = $setting->persen / 100; // Ambil persen dari setting dan bagi 100
-    $bonusBaru = $total * $persen; // Bonus dihitung dari persen yang diambil dari setting
-    $maxBonus = $setting->maxbonus; // Ambil nilai maxbonus dari setting
+
+    $bonusBaru = $total * $this->persen; // Bonus dihitung dari persen yang diambil dari setting
+    $maxBonus = $this->setting->maxbonus; // Ambil nilai maxbonus dari setting
     $tanggal = now()->format('Y-m-d');
 
 

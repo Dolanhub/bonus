@@ -95,7 +95,6 @@
                                         </div>
                                     </form>
                                 </div>
-                                <button class="btn btn-success mt-2" style="margin-left: 10px;">Proses All Pending</button>
 
                                 <div class="clearfix mb-3"></div>
 

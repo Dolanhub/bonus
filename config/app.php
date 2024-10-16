@@ -124,8 +124,7 @@ return [
     ],
 
     // 'providers' => [
-    // // ...
-    // Laravel\Fortify\FortifyServiceProvider::class,
+    //     App\Providers\FortifyServiceProvider::class,
     // ],
 
 ];
