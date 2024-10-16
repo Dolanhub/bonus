@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('uploadscashback',UploadCashBackController::class);
     Route::post('/uploadscashback/send/{id}', [UploadCashBackController::class, 'send'])->name('uploadscashback.send');
     Route::resource('uploadsrolling',UploadRollingController::class);
+    Route::post('/uploadsrolling/send/{id}', [UploadRollingController::class, 'send'])->name('uploadsrolling.send');
     Route::resource('hasilbonus',HasilUploadBonusController::class);
     Route::get('bonus-export', [HasilUploadBonusController::class, 'export'])->name('hasilbonus.export');
     Route::resource('hasilcashback',HasilUploadCashBackController::class);

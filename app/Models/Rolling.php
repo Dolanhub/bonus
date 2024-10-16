@@ -9,7 +9,15 @@ class Rolling extends Model
 {
     // use HasFactory;
     protected $table='rollings';
-
+    protected $fillable = [
+        'idupload',
+        'user_id',
+        'member',
+        'total',
+        'status',
+        'responseapi',
+        'create_at',
+    ];
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

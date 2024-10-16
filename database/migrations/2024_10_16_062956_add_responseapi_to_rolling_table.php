@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cash_backs', function (Blueprint $table) {
+        Schema::table('rollings', function (Blueprint $table) {
             //
             $table->text('responseapi')->nullable()->after('status');
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('cash_backs', function (Blueprint $table) {
+        Schema::table('rollings', function (Blueprint $table) {
             //
             $table->dropColumn('responseapi');
         });
