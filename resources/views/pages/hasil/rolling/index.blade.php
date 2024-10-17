@@ -95,8 +95,6 @@
                                         </div>
                                     </form>
                                 </div>
-                                <button class="btn btn-success mt-2" style="margin-left: 10px;">Proses All Pending</button>
-
 
                                 <div class="clearfix mb-3"></div>
 
@@ -111,7 +109,7 @@
                                         <th>Total</th>
                                         <th>Status</th>
                                         <th>Created At</th>
-                                        <th>Action</th>
+                                        {{-- <th>Action</th> --}}
                                     </tr>
                                     @foreach($uploadrolling as $rolling)
                                     <tr>
@@ -131,7 +129,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $rolling->created_at }}</td>
-                                        <td>
+                                        {{-- <td>
                                             @if (!$rolling->status == 1)
                                                 <div class="d-flex justify-content-center">
                                                     <a href='{{ route('hasilrolling.edit', $rolling->id) }}'
@@ -152,7 +150,7 @@
                                                 </div>
                                             @endif
 
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @endforeach
                                     </table>

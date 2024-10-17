@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\ServiceProvider;
+use NunoMaduro\Collision\Provider;
+
 return [
 
     /*
@@ -123,8 +126,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    // 'providers' => [
+    // 'providers' =>ServiceProvider::defaultProviders()->merge([
     //     App\Providers\FortifyServiceProvider::class,
-    // ],
+    // ])->toArray(),
 
 ];

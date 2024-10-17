@@ -3,15 +3,21 @@
 use App\Http\Controllers\HasilUploadBonusController;
 use App\Http\Controllers\HasilUploadCashBackController;
 use App\Http\Controllers\HasilUploadRollingController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MemberDataController;
 use App\Http\Controllers\UploadBonusController;
 use App\Http\Controllers\UploadCashBackController;
 use App\Http\Controllers\UploadRollingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->name('login');
+
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.perform');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('home', function () {
@@ -32,4 +38,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('cashback-export', [HasilUploadCashBackController::class, 'export'])->name('hasilcashback.export');
     Route::resource('hasilrolling',HasilUploadRollingController::class);
     Route::get('rolling-export', [HasilUploadRollingController::class, 'export'])->name('hasilrolling.export');
+    Route::resource('memberdata', MemberDataController::class);
 });

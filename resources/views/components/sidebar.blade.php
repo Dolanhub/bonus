@@ -9,7 +9,7 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="nav-item">
-                <a href="{{ route('home')}}"
+                <a href="{{route('home')}}"
                     class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
             <li class="nav-item dropdown">
@@ -31,7 +31,9 @@
                     <li><a href="{{route('hasilrolling.index')}}">Import Rolling</a></li>
                 </ul>
             </li>
-
+            <li class="nav-item">
+                <a href="{{ route('memberdata.index') }}" class="nav-link"><i class="fas fa-fire"></i><span>Cek Member</span></a>
+            </li>
 
             <li class="nav-item">
                 <a href="{{ route('users.index') }}" class="nav-link"><i class="fas fa-fire"></i><span>Users</span></a>
